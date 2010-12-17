@@ -8,11 +8,10 @@ class EulerSpec extends Specification {
 		
 		val range = (1 until 1000)
 		val result = range.foldLeft(0) {
-			case (accum, i) if isMultipleOfThree(i) => accum + i
-			case (accum, i) if isMultipleOfFive(i) => accum + i
+			case (accum, i) if i isMultipleOf 3 => accum + i
+			case (accum, i) if i isMultipleOf 5 => accum + i
 			case (accum, i) => accum
 		}
-		println("Result is: %s".format(result))
 		result must_== 233168
     }
   }
@@ -31,10 +30,18 @@ class EulerSpec extends Specification {
 	}	
   }
 
-  object Problem1 {
+  object Problem1 {			
 	def isMultipleOfThree = isMultipleOf(3) _
 	def isMultipleOfFive = isMultipleOf(5) _
 	def isMultipleOf(multiple:Int)(i : Int) = (i % multiple) == 0
+		
+	implicit def isMultiple(i: Int): IsMultipleWrapper = new IsMultipleWrapper(i)
+	
+	class IsMultipleWrapper(i: Int) {
+		def isMultipleOfThree: Boolean = Problem1.isMultipleOfThree(i)
+		def isMultipleOfFive: Boolean = Problem1.isMultipleOfFive(i)
+		def isMultipleOf(multiple: Int): Boolean = Problem1.isMultipleOf(multiple)(i)
+	}
   }
   
 }
