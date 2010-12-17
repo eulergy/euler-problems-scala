@@ -7,13 +7,13 @@ class EulerSpec extends Specification {
 		import Problem1._
 		
 		val range = (1 until 1000)
-		println("Range: %s", range)
 		val result = range.foldLeft(0) {
 			case (accum, i) if isMultipleOfThree(i) => accum + i
 			case (accum, i) if isMultipleOfFive(i) => accum + i
 			case (accum, i) => accum
 		}
 		println("Result is: %s".format(result))
+		result must_== 233168
     }
   }
 
