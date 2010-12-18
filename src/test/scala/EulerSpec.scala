@@ -7,7 +7,7 @@ class EulerSpec extends Specification {
 		val iter = Iterator.iterate(600851475143L,2) {
 			case (reduction, i) if (i isDivisorOf reduction) => (reduction / i, i+1)
 			case (reduction, i) => (reduction, i+1)
-		}.dropWhile {
+		} dropWhile {
 			case (reduction, i) => (reduction / i) > 1
 		}
 		val (result, other) = iter.next
