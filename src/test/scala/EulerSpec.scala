@@ -7,6 +7,8 @@ class EulerSpec extends Specification {
     }
   }
 
-  def fib_iter = Iterator.iterate(1, 2){ i => (i._2, i._1 + i._2) }
+  def primes = Iterator.iterate(1, 2) { 
+	case (i, j) => (j, i + j) 
+  }
 
 }
