@@ -5,22 +5,17 @@ class EulerSpec extends Specification {
 
   "Euler Problem Number 4" should {
     "Find the largest palindrome made from the product of two 3-digit numbers" in {
-		val highestProduct = Iterator.iterate(999L, 999L) {
-			case (100, i) => (i-1, i-1)
-			case (i, j) => (i-1, j)
-		} collect {
-			case (i, j) => (i, j, i*j)
-		} collect {
-			case (i, j, product) if (product isPalindrome) => (i, j, product)
-		} takeWhile {
-			case (i, j, product) => j > 100
+		val highestProduct = Iterator.iterate( Seq(999L, 999L) ) {
+			case Seq(100, i) => Seq(i-1, i-1)
+			case Seq(i, j) => Seq(i-1, j)		
+		} filter(_.product isPalindrome) takeWhile {
+			case Seq(i, j) => j > 100
 		} reduceLeft {
-			(a,b) => if(a._3 > b._3) a else b
+			(a,b) => if(a.product > b.product) a else b
 		}
 		
-		val (i, j, result) = highestProduct
-		println("Result: %s = %s * %s".format(result, i, j))
-		result must_!= 698896
+		println("Result: %s = %s * %s".format(highestProduct.product, highestProduct(0), highestProduct(1)))
+		highestProduct.product must_!= 906609
     }
   }
 
