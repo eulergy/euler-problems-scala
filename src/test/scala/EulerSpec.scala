@@ -13,7 +13,7 @@ class EulerSpec extends Specification {
 		
 		val result = squareOfSums - sumOfSquares
 		println("Result: %s".format(result))
-		result must_== 232792560
+		result must_== 25164150
     }
   }
 
