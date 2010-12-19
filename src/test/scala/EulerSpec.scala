@@ -15,7 +15,7 @@ class EulerSpec extends Specification {
 		}
 		
 		println("Result: %s = %s * %s".format(highestProduct.product, highestProduct(0), highestProduct(1)))
-		highestProduct.product must_!= 906609
+		highestProduct.product must_== 906609
     }
   }
 
