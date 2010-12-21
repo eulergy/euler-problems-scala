@@ -1,7 +1,9 @@
 package eulergy
 
 import org.specs._
-import eulergy.NumberHelpers._
+import eulergy._
+import NumberHelpers._
+import Streams._
 
 class NumberHelpersSpec extends Specification {
 	"Number helpers" should {
@@ -21,4 +23,21 @@ class NumberHelpersSpec extends Specification {
 			(1234554321 isPalindrome) must_== true
 		}
   	}
+
+	"Streams" should {
+		"identity is the infinite sequence of 1's" in {
+			Streams.identity.head must_== 1
+			Streams.identity.hasDefiniteSize must_== false
+			Streams.identity take 10 forall( i => i==1) must_== true
+		}
+		"naturalNumbers is the infinite sequence of natural numbers" in {
+			Streams.naturalNumbers.head must_== 1
+			Streams.naturalNumbers.tail.head must_== 2
+			Streams.naturalNumbers.hasDefiniteSize must_== false
+			Streams.naturalNumbers.take(10).toSet mustEqual(Set(1,2,3,4,5,6,7,8,9,10))
+		}
+		"primes should be the Stream of prime numbers" in {
+			Streams.primes.take(6).toList mustEqual(List(2, 3, 5, 7, 11, 13))
+		}
+	}
 }

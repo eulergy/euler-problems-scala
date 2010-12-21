@@ -22,5 +22,21 @@ object StringHelper {
  		case _ => false                                                    
  	}
 }
+
+object Streams {
+	import NumberHelpers._
+	
+	lazy val identity: Stream[Int] = Stream.iterate(1)(i => 1)
+	lazy val naturalNumbers: Stream[Int] = Stream.iterate(1)(i => i+1)
+	lazy val primes: Stream[Int] = 
+		Stream.cons(2, Streams.naturalNumbers.tail filterNot {
+			case 2 => true
+			case i => 
+					val potentialPrimeFactors = primes takeWhile {
+						case j => j*j <= i
+					}						
+					potentialPrimeFactors exists(_ isDivisorOf i)
+		})	
+}
 	
 }

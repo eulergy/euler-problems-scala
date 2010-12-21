@@ -1,19 +1,24 @@
 import org.specs._
-import eulergy.NumberHelpers._
+import eulergy._
+import NumberHelpers._
+import Streams._
 import scala.math._
 
 class EulerSpec extends Specification {
 
-  "Euler Problem Number 6" should {
-    "Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum" in {
-		val sumOfSquares = Iterator.range(1, 101).collect {
-			case i => pow(i, 2)
-		}.sum
-		val squareOfSums = pow(Iterator.range(1, 101).sum, 2)
+  "Euler Problem Number 7" should {
+    "What is the 10001st prime number" in {
 		
-		val result = squareOfSums - sumOfSquares
-		println("Result: %s".format(result))
-		result must_== 25164150
+		lazy val primes: Stream[Int] = 
+			Stream.cons(2, Streams.naturalNumbers.tail filterNot {
+				case 2 => true
+				case i => 
+						val potentialPrimeFactors = primes takeWhile {
+							case j => j*j <= i
+						}						
+						potentialPrimeFactors exists(_ isDivisorOf i)
+			})
+		primes.take(10001).last must_== 104743
     }
   }
 
