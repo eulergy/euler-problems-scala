@@ -2,3 +2,8 @@ project/boot/
 project/build/target/
 target/
 lib_managed/
+.idea/
+Euler Dojo Scala Project.iml
+out/
+Euler Dojo Scala Project.iml
+*.iml
